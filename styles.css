@@ -1,9 +1,13 @@
 body, html{
   height:100%;
+  overflow: hidden;
+  width: 100%;
 }
 body{
   margin: 0px;
-  background-color:#444;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-image: url(assets/gifs/background.jfif);
   font-size: 18px;
 }
 body, a:link, a:visited, a:active{
@@ -14,6 +18,8 @@ body, a:link, a:visited, a:active{
   float:right;
 }
 .topbar{
+  display: none;
+  z-index: 10;
   height:32px;
   background-color: #555;
 }
@@ -21,7 +27,8 @@ body, a:link, a:visited, a:active{
   background-color: #777;
 }
 .dancer{
-  border:10px solid red;
-  border-radius:10px;
   position:absolute;
+ background-image: url("");
+ /*transform: translateX(-50%);*/
+ transform: translateY(-50%);
 }

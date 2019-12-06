@@ -1,33 +1,30 @@
+const birds = ['black','electric','grey','light-blue','linear-blue','rasta','white','yellow']
+const bird = [LeftBird, RightBird];
+var count = 0;
 $(document).ready(function() {
   window.dancers = [];
 
-  $('.addDancerButton').on('click', function(event) {
-    /* This function sets up the click handlers for the create-dancer
-     * buttons on dancefloor.html. You should only need to make one small change to it.
-     * As long as the "data-dancer-maker-function-name" attribute of a
-     * class="addDancerButton" DOM node matches one of the names of the
-     * maker functions available in the global scope, clicking that node
-     * will call the function to make the dancer.
-     */
-
-    /* dancerMakerFunctionName is a string which must match
-     * one of the dancer maker functions available in global scope.
-     * A new object of the given type will be created and added
-     * to the stage.
-     */
+  function generateBirds(event, postionTop = event.originalEvent.pageY, positionLeft = event.originalEvent.pageX) {
+    console.log(event)
+    count++
     var dancerMakerFunctionName = $(this).data('dancer-maker-function-name');
-
-    // get the maker function for the kind of dancer we're supposed to make
     var dancerMakerFunction = window[dancerMakerFunctionName];
-
-    // make a dancer with a random position
-
-    var dancer = dancerMakerFunction(
-      $("body").height() * Math.random(),
-      $("body").width() * Math.random(),
-      Math.random() * 1000
+    var startingPosition = Math.round(Math.random());
+    var dancer = new bird[Math.round(Math.random())](postionTop, positionLeft,
+      Math.random() * 1000 // Speed of the bird
     );
+    dancer.$node.attr("src", "assets/gifs/" + birds[Math.floor(Math.random()* birds.length)] + ".gif");
+    dancer.$node.attr("height", Math.floor(Math.random() * 150)+ 50 + "px");
     $('body').append(dancer.$node);
-  });
-});
+    if(dancer.position){
+      $('#bird' + count).animate({left: '-50%',top: (Math.floor(Math.random() * 600) - 300) + 'px'}, (Math.random() * 5000 )+ 5000)
+    }else {
+      $('#bird' + count).animate({left: '100%',top: (Math.floor(Math.random() * 600) - 300) + 'px'}, (Math.random() * 5000 )+ 5000)
+    }
+  }
 
+  $('body').on('click',generateBirds);
+  $('body').keypress(function(event){
+    generateBirds(event, Math.floor($('body').innerHeight()* Math.random()), Math.floor($('body').innerWidth() * Math.random()))
+  })
+});
